@@ -27,6 +27,9 @@ Partial Class WinFormExampleForm
         Me.ExampleLabel = New System.Windows.Forms.Label()
         Me.ActionButton = New System.Windows.Forms.Button()
         Me.StringReverseCheckBox = New System.Windows.Forms.CheckBox()
+        Me.ExampleListBox = New System.Windows.Forms.ListBox()
+        Me.RemoveButton = New System.Windows.Forms.Button()
+        Me.ExampleComboBox = New System.Windows.Forms.ComboBox()
         Me.SuspendLayout()
         '
         'ExitButton
@@ -73,11 +76,40 @@ Partial Class WinFormExampleForm
         Me.StringReverseCheckBox.Text = "Reverse"
         Me.StringReverseCheckBox.UseVisualStyleBackColor = True
         '
+        'ExampleListBox
+        '
+        Me.ExampleListBox.FormattingEnabled = True
+        Me.ExampleListBox.ItemHeight = 20
+        Me.ExampleListBox.Location = New System.Drawing.Point(12, 92)
+        Me.ExampleListBox.Name = "ExampleListBox"
+        Me.ExampleListBox.Size = New System.Drawing.Size(362, 244)
+        Me.ExampleListBox.TabIndex = 5
+        '
+        'RemoveButton
+        '
+        Me.RemoveButton.Location = New System.Drawing.Point(287, 344)
+        Me.RemoveButton.Name = "RemoveButton"
+        Me.RemoveButton.Size = New System.Drawing.Size(163, 94)
+        Me.RemoveButton.TabIndex = 6
+        Me.RemoveButton.Text = "&Remove"
+        Me.RemoveButton.UseVisualStyleBackColor = True
+        '
+        'ExampleComboBox
+        '
+        Me.ExampleComboBox.FormattingEnabled = True
+        Me.ExampleComboBox.Location = New System.Drawing.Point(380, 92)
+        Me.ExampleComboBox.Name = "ExampleComboBox"
+        Me.ExampleComboBox.Size = New System.Drawing.Size(254, 28)
+        Me.ExampleComboBox.TabIndex = 7
+        '
         'WinFormExampleForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.Controls.Add(Me.ExampleComboBox)
+        Me.Controls.Add(Me.RemoveButton)
+        Me.Controls.Add(Me.ExampleListBox)
         Me.Controls.Add(Me.StringReverseCheckBox)
         Me.Controls.Add(Me.ActionButton)
         Me.Controls.Add(Me.ExampleLabel)
@@ -95,4 +127,7 @@ Partial Class WinFormExampleForm
     Friend WithEvents ExampleLabel As Label
     Friend WithEvents ActionButton As Button
     Friend WithEvents StringReverseCheckBox As CheckBox
+    Friend WithEvents ExampleListBox As ListBox
+    Friend WithEvents RemoveButton As Button
+    Friend WithEvents ExampleComboBox As ComboBox
 End Class
