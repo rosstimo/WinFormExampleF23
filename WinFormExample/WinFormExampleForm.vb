@@ -1,4 +1,8 @@
 ﻿Public Class WinFormExampleForm
+
+    Dim fruits As New List(Of String)
+
+    ' Event Handler Section
     Private Sub ExitButton_Click(sender As Object, e As EventArgs) Handles ExitButton.Click
         Me.Close()
     End Sub
@@ -10,28 +14,18 @@
             ExampleTextBox.Text = StrReverse(ExampleTextBox.Text)
         End If
 
-        ExampleListBox.Items.Add(ExampleTextBox.Text)
-        ExampleComboBox.Items.Add(ExampleTextBox.Text)
+        'ExampleListBox.Items.Add(ExampleTextBox.Text)
+        'ExampleComboBox.Items.Add(ExampleTextBox.Text)
+        AddItem()
     End Sub
 
-    Private Sub WinFormExampleForm_Load(sender As Object, e As EventArgs) Handles Me.Load
-        'add 5 fruits to the list box
-        ExampleListBox.Items.Add("Apple")
-        ExampleListBox.Items.Add("Grape")
-        ExampleListBox.Items.Add("Banana")
-        ExampleListBox.Items.Add("Lemon")
-        ExampleListBox.Items.Add("Tomato")
-
-        'add 5 fruits to the combo box
-        ExampleComboBox.Items.Add("Apple")
-        ExampleComboBox.Items.Add("Grape")
-        ExampleComboBox.Items.Add("Banana")
-        ExampleComboBox.Items.Add("Lemon")
-        ExampleComboBox.Items.Add("Tomato")
-
-
-        ExampleComboBox.SelectedIndex = 0
-
+    Private Sub RemoveButton_Click(sender As Object, e As EventArgs) Handles RemoveButton.Click
+        Try
+            ExampleListBox.Items.RemoveAt(ExampleListBox.SelectedIndex)
+            ExampleComboBox.Items.RemoveAt(ExampleComboBox.SelectedIndex)
+        Catch ex As Exception
+            'do nothing
+        End Try
     End Sub
 
     Private Sub ExampleListBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ExampleListBox.SelectedIndexChanged
@@ -53,15 +47,6 @@
         End Try
     End Sub
 
-    Private Sub RemoveButton_Click(sender As Object, e As EventArgs) Handles RemoveButton.Click
-        Try
-            ExampleListBox.Items.RemoveAt(ExampleListBox.SelectedIndex)
-            ExampleComboBox.Items.RemoveAt(ExampleComboBox.SelectedIndex)
-        Catch ex As Exception
-            'do nothing
-        End Try
-    End Sub
-
     Private Sub ExampleComboBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ExampleComboBox.SelectedIndexChanged
         Try
             'set the text box to the selected item
@@ -80,4 +65,66 @@
 
         End Try
     End Sub
+
+    Private Sub WinFormExampleForm_Load(sender As Object, e As EventArgs) Handles Me.Load
+        SetListDefaults()
+        DisplayList()
+
+        ExampleComboBox.SelectedIndex = 0
+
+    End Sub
+
+    'custom methods
+
+    ''' <summary>
+    ''' Clear the list of fruits and return to a known default state
+    ''' </summary>
+    Private Sub SetListDefaults()
+        Me.fruits.Clear()
+        Me.fruits.Add("Apple")
+        Me.fruits.Add("Grape")
+        Me.fruits.Add("Banana")
+        Me.fruits.Add("Lemon")
+        Me.fruits.Add("Tomato")
+    End Sub
+
+    ''' <summary>
+    ''' Update all list controls with the current list of fruits
+    ''' </summary>
+    Private Sub DisplayList()
+        ExampleListBox.Items.Clear()
+        ExampleComboBox.Items.Clear()
+
+        For Each fruit As String In Me.fruits
+            ExampleListBox.Items.Add(fruit)
+            ExampleComboBox.Items.Add(fruit)
+        Next
+    End Sub
+
+    ''' <summary>
+    ''' Add the contents of the text box to the list of fruits
+    '''
+    ''' <list> 
+    ''' <item>
+    ''' <description>
+    ''' Avoid adding empty items
+    ''' </description>
+    ''' </item>
+    ''' <item>
+    ''' <description>
+    ''' Avoid adding duplicates
+    ''' </description>
+    ''' </item>
+    ''' </list>
+    ''' </summary>
+    Sub AddItem()
+
+        If ExampleTextBox.Text <> "" _
+           And Not ExampleListBox.Items.Contains(ExampleTextBox.Text) _
+           And Not ExampleComboBox.Items.Contains(ExampleTextBox.Text) Then
+            fruits.Add(ExampleTextBox.Text)
+        End If
+        DisplayList()
+    End Sub
+
 End Class
