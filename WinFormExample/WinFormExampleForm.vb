@@ -20,12 +20,20 @@
     End Sub
 
     Private Sub RemoveButton_Click(sender As Object, e As EventArgs) Handles RemoveButton.Click
-        Try
-            ExampleListBox.Items.RemoveAt(ExampleListBox.SelectedIndex)
-            ExampleComboBox.Items.RemoveAt(ExampleComboBox.SelectedIndex)
-        Catch ex As Exception
-            'do nothing
-        End Try
+        'Try
+        '    ExampleListBox.Items.RemoveAt(ExampleListBox.SelectedIndex)
+        '    ExampleComboBox.Items.RemoveAt(ExampleComboBox.SelectedIndex)
+        'Catch ex As Exception
+        '    'do nothing
+        'End Try
+        If ExampleListBox.SelectedIndex >= 0 Then
+            Try
+                RemoveItem(ExampleListBox.SelectedItem.ToString)
+            Catch ex As Exception
+                'do nothing
+            End Try
+        End If
+
     End Sub
 
     Private Sub ExampleListBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ExampleListBox.SelectedIndexChanged
@@ -33,9 +41,12 @@
             'set the text box to the selected item
             'MsgBox(ExampleListBox.SelectedIndex)
             If ExampleListBox.SelectedIndex >= 0 Then
+                RemoveButton.Enabled = True
                 Me.Text = ExampleListBox.SelectedItem.ToString
                 ExampleTextBox.Text = ExampleListBox.SelectedItem.ToString
                 ExampleComboBox.SelectedIndex = ExampleListBox.SelectedIndex
+            Else
+                RemoveButton.Enabled = False
             End If
 
         Catch oops As System.NullReferenceException
@@ -84,8 +95,16 @@
         Me.fruits.Add("Apple")
         Me.fruits.Add("Grape")
         Me.fruits.Add("Banana")
+        Me.fruits.Add("Banana")
+        Me.fruits.Add("Banana")
+        Me.fruits.Add("Banana")
+        Me.fruits.Add("Banana")
         Me.fruits.Add("Lemon")
         Me.fruits.Add("Tomato")
+        Me.fruits.Add("Banana")
+        Me.fruits.Add("Banana")
+        Me.fruits.Add("Banana")
+        Me.fruits.Add("Banana")
     End Sub
 
     ''' <summary>
@@ -126,5 +145,18 @@
         End If
         DisplayList()
     End Sub
+
+    Sub RemoveItem(currentItem As String)
+
+        Try
+            Do While fruits.Contains(currentItem)
+                Me.fruits.Remove(currentItem)
+            Loop
+        Catch ex As Exception
+            'do nothing
+        End Try
+        DisplayList()
+    End Sub
+
 
 End Class
