@@ -36,15 +36,25 @@
 
     End Sub
 
-    Private Sub ExampleListBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ExampleListBox.SelectedIndexChanged
+    Private Sub SyncListControlIndex(sender As Object, e As EventArgs) Handles ExampleListBox.SelectedIndexChanged, ExampleComboBox.SelectedIndexChanged
         Try
             'set the text box to the selected item
-            'MsgBox(ExampleListBox.SelectedIndex)
             If ExampleListBox.SelectedIndex >= 0 Then
+
+                'synchronize list controls
+                If sender.Equals(ExampleListBox) Then
+                    ExampleComboBox.SelectedIndex = ExampleListBox.SelectedIndex
+                Else
+                    ExampleListBox.SelectedIndex = ExampleComboBox.SelectedIndex
+                End If
+
+                'enable remove button
                 RemoveButton.Enabled = True
+
+                'update top bar and text box with current selection
                 Me.Text = ExampleListBox.SelectedItem.ToString
                 ExampleTextBox.Text = ExampleListBox.SelectedItem.ToString
-                ExampleComboBox.SelectedIndex = ExampleListBox.SelectedIndex
+
             Else
                 RemoveButton.Enabled = False
             End If
@@ -58,7 +68,9 @@
         End Try
     End Sub
 
-    Private Sub ExampleComboBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ExampleComboBox.SelectedIndexChanged
+    Private Sub ExampleComboBox_SelectedIndexChanged(sender As Object, e As EventArgs) 'Handles ExampleComboBox.SelectedIndexChanged
+        'MsgBox(sender.ToString)
+        'MsgBox(e.ToString)
         Try
             'set the text box to the selected item
             'MsgBox(ExampleComboBox.SelectedIndex)
