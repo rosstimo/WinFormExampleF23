@@ -20,12 +20,6 @@
     End Sub
 
     Private Sub RemoveButton_Click(sender As Object, e As EventArgs) Handles RemoveButton.Click
-        'Try
-        '    ExampleListBox.Items.RemoveAt(ExampleListBox.SelectedIndex)
-        '    ExampleComboBox.Items.RemoveAt(ExampleComboBox.SelectedIndex)
-        'Catch ex As Exception
-        '    'do nothing
-        'End Try
         If ExampleListBox.SelectedIndex >= 0 Then
             Try
                 RemoveItem(ExampleListBox.SelectedItem.ToString)
@@ -38,15 +32,15 @@
 
     Private Sub SyncListControlIndex(sender As Object, e As EventArgs) Handles ExampleListBox.SelectedIndexChanged, ExampleComboBox.SelectedIndexChanged
         Try
+
+            'synchronize list controls
+            If sender.Equals(ExampleListBox) Then
+                ExampleComboBox.SelectedIndex = ExampleListBox.SelectedIndex
+            Else
+                ExampleListBox.SelectedIndex = ExampleComboBox.SelectedIndex
+            End If
             'set the text box to the selected item
             If ExampleListBox.SelectedIndex >= 0 Then
-
-                'synchronize list controls
-                If sender.Equals(ExampleListBox) Then
-                    ExampleComboBox.SelectedIndex = ExampleListBox.SelectedIndex
-                Else
-                    ExampleListBox.SelectedIndex = ExampleComboBox.SelectedIndex
-                End If
 
                 'enable remove button
                 RemoveButton.Enabled = True
@@ -105,11 +99,17 @@
     Private Sub DisplayList()
         ExampleListBox.Items.Clear()
         ExampleComboBox.Items.Clear()
+        ExampleComboBox.Text = ""
 
         For Each fruit As String In Me.fruits
             ExampleListBox.Items.Add(fruit)
             ExampleComboBox.Items.Add(fruit)
         Next
+
+        RemoveButton.Enabled = False
+        ExampleComboBox.Text = "Select a Fruit"
+        ExampleTextBox.Text = ""
+        Me.Text = "Fruit Lover"
     End Sub
 
     ''' <summary>
